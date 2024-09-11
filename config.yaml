@@ -1,0 +1,31 @@
+providers:
+  - id: ollama:gemma2:2b
+    config:
+      temperature: 0
+  - id: ollama:gemma2:9b
+    config:
+      temperature: 0
+  - id: ollama:yi-coder:latest
+    config:
+      temperature: 0
+  - id: gemini:gemini-1.5-flash-8b-exp-0827
+    config:
+      generationConfig:
+        temperature: 0
+
+prompts:
+  - |-
+    CONTEXT:
+    {{context}}
+
+    TASK:
+    Using the files in the context, provide a solution for the tasks in `instructions.md`
+tests:
+  - vars:
+      context:
+        =gen: file:///exercism-context.ts
+        args:
+          - circular-buffer
+          - file:///exercism-js/exercises/practice/
+          - file:///exercism-js/exercises/practice/**/*.js
+          - file:///exercism-js/exercises/practice/**/*.md

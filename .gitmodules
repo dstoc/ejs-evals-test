@@ -1,0 +1,3 @@
+[submodule "exercism-js"]
+	path = exercism-js
+	url = https://github.com/exercism/javascript

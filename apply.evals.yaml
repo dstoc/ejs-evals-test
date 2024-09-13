@@ -1,0 +1,56 @@
+providers:
+  # - id: ollama:gemma2:2b
+  #   config:
+  #     temperature: 0
+  # - id: ollama:gemma2:9b
+  #   config:
+  #     temperature: 0
+  - id: ollama:yi-coder:latest
+    config:
+      temperature: 0
+  - id: ollama:llama3.1:latest
+    config:
+      temperature: 0
+  # - id: gemini:gemini-1.5-flash-exp-0827
+  #   config:
+  #     generationConfig:
+  #       temperature: 0
+  # - id: openai:gpt-4o-mini
+  #   config:
+  #     max_tokens: 2000
+  #     temperature: 0
+
+prompts:
+  - |-
+    CONTEXT:
+    {{context}}
+
+    SUGGESTION:
+    {{suggestion}}
+
+    TASK:
+    Update the CONTEXT files by applying changes from the SUGGESTION.
+    Only make changes that are mentioned in the SUGGESTION.
+    Ignore files that have no changes.
+    Pay attention to whitespace changes.
+
+    To make changes to a file return the complete content of the CONTEXT file with changes applied.
+
+    Use this format:
+
+    path/to/context/file.js
+    ```
+    complete content of the CONTEXT file with changes applied
+    ```
+
+tests:
+  - =gen: |-
+      const execute = (data) => data.map(({exercise, output, applyContext}) => ({
+        description: exercise,
+        vars: {
+          suggestion: output,
+          context: applyContext,
+        }
+      })); 
+    args:
+      - file:///data/exercism-js-suggest-gpt4-mini.json

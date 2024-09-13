@@ -1,0 +1,1 @@
+jq [.tests[] as $testCase | .results[.tests | index($testCase)][0] | {exercise: $testCase.vars.exercise, applyContext: $testCase.vars.applyContext, output: .output}]

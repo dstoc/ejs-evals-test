@@ -1,0 +1,33 @@
+providers:
+  # - id: ollama:gemma2:2b
+  #   config:
+  #     temperature: 0
+  # - id: ollama:gemma2:9b
+  #   config:
+  #     temperature: 0
+  # - id: ollama:yi-coder:latest
+  #   config:
+  #     temperature: 0
+  # - id: gemini:gemini-1.5-flash-exp-0827
+  #   config:
+  #     generationConfig:
+  #       temperature: 0
+  - id: openai:gpt-4o-mini
+    config:
+      max_tokens: 2000
+      temperature: 0
+
+prompts:
+  - |-
+    CONTEXT:
+    {{context}}
+
+    TASK:
+    Using the files in the context, provide a solution for the tasks in `instructions.md`
+    Use best practices when coding.
+    Use the languages, conventions and libraries that are present in the context.
+tests:
+  - =gen: file:///exercism-tests.ts
+    args:
+      - file:///exercism-js/exercises/practice/
+      - - file:///exercism-js/exercises/practice/**/instructions.md

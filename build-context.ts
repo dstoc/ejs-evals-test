@@ -10,7 +10,7 @@ export default async function buildContext(
     await Promise.all(
       files.map(async ({file, uri}) => {
         const extension = uri.match(/\.([^.]*?)$/)?.[1] ?? '';
-        const path = uri.substr(base.length);
+        const path = uri.substring(base.length);
         return {path, extension, content: await file.text()};
       }),
     )

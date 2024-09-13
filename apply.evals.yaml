@@ -1,20 +1,20 @@
 providers:
-  # - id: ollama:gemma2:2b
-  #   config:
-  #     temperature: 0
-  # - id: ollama:gemma2:9b
-  #   config:
-  #     temperature: 0
+  - id: ollama:gemma2:2b
+    config:
+      temperature: 0
+  - id: ollama:gemma2:9b
+    config:
+      temperature: 0
   - id: ollama:yi-coder:latest
     config:
       temperature: 0
-  - id: ollama:llama3.1:latest
-    config:
-      temperature: 0
-  # - id: gemini:gemini-1.5-flash-exp-0827
+  # - id: ollama:llama3.1:latest
   #   config:
-  #     generationConfig:
-  #       temperature: 0
+  #     temperature: 0
+  - id: gemini:gemini-1.5-flash-exp-0827
+    config:
+      generationConfig:
+        temperature: 0
   # - id: openai:gpt-4o-mini
   #   config:
   #     max_tokens: 2000
@@ -43,9 +43,18 @@ prompts:
     complete content of the CONTEXT file with changes applied
     ```
 
+defaultTest:
+  assert:
+    - type: javascript
+      vars:
+        code: file:///assert-no-new-lines.ts
+    - type: javascript
+      vars:
+        code: file:///assert-follows-edit-format.ts
+
 tests:
   - =gen: |-
-      const execute = (data) => data.map(({exercise, output, applyContext}) => ({
+      const execute = (data) => data.splice(0, 3).map(({exercise, output, applyContext}) => ({
         description: exercise,
         vars: {
           suggestion: output,
